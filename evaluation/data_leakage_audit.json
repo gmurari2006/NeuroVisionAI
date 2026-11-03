@@ -1,0 +1,36 @@
+{
+  "dataset_root": "C:\\Users\\tinku\\Downloads\\brain-tumor-mri-dataset",
+  "training": {
+    "total_images": 5600,
+    "unique_hashes": 5429,
+    "class_distribution": {
+      "glioma": 1400,
+      "meningioma": 1400,
+      "notumor": 1400,
+      "pituitary": 1400
+    },
+    "intra_split_duplicates": 171
+  },
+  "testing": {
+    "total_images": 1600,
+    "unique_hashes": 1584,
+    "class_distribution": {
+      "glioma": 400,
+      "meningioma": 400,
+      "notumor": 400,
+      "pituitary": 400
+    },
+    "intra_split_duplicates": 16
+  },
+  "leakage": {
+    "exact_duplicate_count": 0,
+    "leakage_rate_pct": 0.0,
+    "leaked_by_class": {
+      "glioma": 0,
+      "meningioma": 0,
+      "notumor": 0,
+      "pituitary": 0
+    },
+    "sample_leaks": []
+  }
+}

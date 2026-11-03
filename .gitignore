@@ -1,0 +1,76 @@
+# Python Environment
+.venv/
+env/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Node.js & Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment & Local Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary & Output Directories
+uploads/*
+!uploads/.gitkeep
+outputs/*
+!outputs/.gitkeep
+_temp_extract/
+*.tmp
+*.log
+
+# IDE & System Files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+
+# Trained model checkpoints and archives
+models/*.pth
+*.zip
+
+# Dataset directories
+datasets/
+data/
+
+# Generated reports and temporary outputs
+outputs/*
+!outputs/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# Local evaluation artifacts and images
+evaluation/failure_cases/
+evaluation/*.png
+evaluation/*.pdf
+
+# Keep research metrics and reports
+!evaluation/*.md
+!evaluation/*.json
+!evaluation/*.csv
+
+# Local environment files
+.env.*
+!.env.example
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+*.tsbuildinfo

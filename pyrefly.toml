@@ -1,0 +1,14 @@
+# Pyrefly Configuration for NeuroVisionAI
+# https://pyrefly.org/en/docs/error-kinds/#missing-import
+
+search-path = [".", "backend"]
+python-interpreter-path = ".venv/Scripts/python.exe"
+
+ignore-missing-imports = [
+    "cv2",
+    "cv2.*"
+]
+
+[errors]
+missing-import = "warning"
+

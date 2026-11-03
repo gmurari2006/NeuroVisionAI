@@ -1,0 +1,78 @@
+{
+  "total_glioma_test_images": 400,
+  "resnet50": {
+    "correct": 297,
+    "failed": 103,
+    "recall": 0.7425,
+    "precision": 0.9802,
+    "f1_score": 0.845,
+    "error_destinations": {
+      "meningioma": 59,
+      "notumor": 36,
+      "pituitary": 8
+    }
+  },
+  "vgg16": {
+    "correct": 291,
+    "failed": 109,
+    "recall": 0.7275,
+    "precision": 0.9831,
+    "f1_score": 0.8362,
+    "error_destinations": {
+      "meningioma": 79,
+      "notumor": 26,
+      "pituitary": 4
+    }
+  },
+  "both_models_failed_count": 88,
+  "analyzed_failure_samples": [
+    {
+      "filename": "Te-gl_1.jpg",
+      "true_class": "glioma",
+      "resnet_pred": "pituitary",
+      "resnet_conf": 0.4757,
+      "vgg_pred": "meningioma",
+      "vgg_conf": 0.9784
+    },
+    {
+      "filename": "Te-gl_102.jpg",
+      "true_class": "glioma",
+      "resnet_pred": "pituitary",
+      "resnet_conf": 0.3858,
+      "vgg_pred": "notumor",
+      "vgg_conf": 0.7736
+    },
+    {
+      "filename": "Te-gl_106.jpg",
+      "true_class": "glioma",
+      "resnet_pred": "meningioma",
+      "resnet_conf": 0.9572,
+      "vgg_pred": "meningioma",
+      "vgg_conf": 0.5989
+    },
+    {
+      "filename": "Te-gl_109.jpg",
+      "true_class": "glioma",
+      "resnet_pred": "meningioma",
+      "resnet_conf": 0.9537,
+      "vgg_pred": "meningioma",
+      "vgg_conf": 0.9459
+    },
+    {
+      "filename": "Te-gl_115.jpg",
+      "true_class": "glioma",
+      "resnet_pred": "meningioma",
+      "resnet_conf": 0.7571,
+      "vgg_pred": "notumor",
+      "vgg_conf": 0.5604
+    },
+    {
+      "filename": "Te-gl_126.jpg",
+      "true_class": "glioma",
+      "resnet_pred": "meningioma",
+      "resnet_conf": 0.9353,
+      "vgg_pred": "meningioma",
+      "vgg_conf": 0.9904
+    }
+  ]
+}

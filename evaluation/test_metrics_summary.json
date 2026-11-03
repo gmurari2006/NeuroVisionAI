@@ -1,0 +1,359 @@
+{
+  "evaluation_timestamp": "2026-11-03T06:58:06Z",
+  "dataset_split": "Independent Testing Split",
+  "dataset_path": "C:\\Users\\tinku\\Downloads\\brain-tumor-mri-dataset\\Testing",
+  "sample_size": 1600,
+  "class_names": [
+    "glioma",
+    "meningioma",
+    "notumor",
+    "pituitary"
+  ],
+  "models": {
+    "resnet50": {
+      "model_name": "ResNet-50",
+      "accuracy": 0.9106,
+      "macro_precision": 0.9165,
+      "macro_recall": 0.9106,
+      "macro_f1": 0.9082,
+      "weighted_f1": 0.9082,
+      "macro_roc_auc": 0.9803,
+      "cohen_kappa": 0.8808,
+      "avg_latency_ms": 424.41,
+      "total_test_samples": 1600,
+      "confusion_matrix_raw": [
+        [
+          297,
+          59,
+          36,
+          8
+        ],
+        [
+          5,
+          367,
+          16,
+          12
+        ],
+        [
+          0,
+          1,
+          399,
+          0
+        ],
+        [
+          1,
+          5,
+          0,
+          394
+        ]
+      ],
+      "confusion_matrix_normalized": [
+        [
+          0.7425,
+          0.1475,
+          0.09,
+          0.02
+        ],
+        [
+          0.0125,
+          0.9175,
+          0.04,
+          0.03
+        ],
+        [
+          0.0,
+          0.0025,
+          0.9975,
+          0.0
+        ],
+        [
+          0.0025,
+          0.0125,
+          0.0,
+          0.985
+        ]
+      ],
+      "per_class": {
+        "glioma": {
+          "class_index": 0,
+          "support": 400,
+          "true_positives": 297,
+          "false_positives": 6,
+          "true_negatives": 1194,
+          "false_negatives": 103,
+          "precision": 0.9802,
+          "recall_sensitivity": 0.7425,
+          "specificity": 0.995,
+          "f1_score": 0.845,
+          "balanced_accuracy": 0.8688,
+          "roc_auc": 0.9479,
+          "pr_auc": 0.919
+        },
+        "meningioma": {
+          "class_index": 1,
+          "support": 400,
+          "true_positives": 367,
+          "false_positives": 65,
+          "true_negatives": 1135,
+          "false_negatives": 33,
+          "precision": 0.8495,
+          "recall_sensitivity": 0.9175,
+          "specificity": 0.9458,
+          "f1_score": 0.8822,
+          "balanced_accuracy": 0.9317,
+          "roc_auc": 0.9776,
+          "pr_auc": 0.9335
+        },
+        "notumor": {
+          "class_index": 2,
+          "support": 400,
+          "true_positives": 399,
+          "false_positives": 52,
+          "true_negatives": 1148,
+          "false_negatives": 1,
+          "precision": 0.8847,
+          "recall_sensitivity": 0.9975,
+          "specificity": 0.9567,
+          "f1_score": 0.9377,
+          "balanced_accuracy": 0.9771,
+          "roc_auc": 0.9975,
+          "pr_auc": 0.9918
+        },
+        "pituitary": {
+          "class_index": 3,
+          "support": 400,
+          "true_positives": 394,
+          "false_positives": 20,
+          "true_negatives": 1180,
+          "false_negatives": 6,
+          "precision": 0.9517,
+          "recall_sensitivity": 0.985,
+          "specificity": 0.9833,
+          "f1_score": 0.9681,
+          "balanced_accuracy": 0.9842,
+          "roc_auc": 0.9981,
+          "pr_auc": 0.9945
+        }
+      }
+    },
+    "vgg16": {
+      "model_name": "VGG-16",
+      "accuracy": 0.9163,
+      "macro_precision": 0.9237,
+      "macro_recall": 0.9163,
+      "macro_f1": 0.9137,
+      "weighted_f1": 0.9137,
+      "macro_roc_auc": 0.9791,
+      "cohen_kappa": 0.8883,
+      "avg_latency_ms": 892.98,
+      "total_test_samples": 1600,
+      "confusion_matrix_raw": [
+        [
+          291,
+          79,
+          26,
+          4
+        ],
+        [
+          4,
+          378,
+          10,
+          8
+        ],
+        [
+          1,
+          0,
+          399,
+          0
+        ],
+        [
+          0,
+          2,
+          0,
+          398
+        ]
+      ],
+      "confusion_matrix_normalized": [
+        [
+          0.7275,
+          0.1975,
+          0.065,
+          0.01
+        ],
+        [
+          0.01,
+          0.945,
+          0.025,
+          0.02
+        ],
+        [
+          0.0025,
+          0.0,
+          0.9975,
+          0.0
+        ],
+        [
+          0.0,
+          0.005,
+          0.0,
+          0.995
+        ]
+      ],
+      "per_class": {
+        "glioma": {
+          "class_index": 0,
+          "support": 400,
+          "true_positives": 291,
+          "false_positives": 5,
+          "true_negatives": 1195,
+          "false_negatives": 109,
+          "precision": 0.9831,
+          "recall_sensitivity": 0.7275,
+          "specificity": 0.9958,
+          "f1_score": 0.8362,
+          "balanced_accuracy": 0.8617,
+          "roc_auc": 0.937,
+          "pr_auc": 0.9083
+        },
+        "meningioma": {
+          "class_index": 1,
+          "support": 400,
+          "true_positives": 378,
+          "false_positives": 81,
+          "true_negatives": 1119,
+          "false_negatives": 22,
+          "precision": 0.8235,
+          "recall_sensitivity": 0.945,
+          "specificity": 0.9325,
+          "f1_score": 0.8801,
+          "balanced_accuracy": 0.9387,
+          "roc_auc": 0.9812,
+          "pr_auc": 0.9352
+        },
+        "notumor": {
+          "class_index": 2,
+          "support": 400,
+          "true_positives": 399,
+          "false_positives": 36,
+          "true_negatives": 1164,
+          "false_negatives": 1,
+          "precision": 0.9172,
+          "recall_sensitivity": 0.9975,
+          "specificity": 0.97,
+          "f1_score": 0.9557,
+          "balanced_accuracy": 0.9838,
+          "roc_auc": 0.9987,
+          "pr_auc": 0.9951
+        },
+        "pituitary": {
+          "class_index": 3,
+          "support": 400,
+          "true_positives": 398,
+          "false_positives": 12,
+          "true_negatives": 1188,
+          "false_negatives": 2,
+          "precision": 0.9707,
+          "recall_sensitivity": 0.995,
+          "specificity": 0.99,
+          "f1_score": 0.9827,
+          "balanced_accuracy": 0.9925,
+          "roc_auc": 0.9997,
+          "pr_auc": 0.9992
+        }
+      }
+    }
+  },
+  "mcnemar_statistical_comparison": {
+    "both_correct_n11": 1420,
+    "both_incorrect_n00": 97,
+    "resnet_correct_vgg_incorrect_n10": 37,
+    "vgg_correct_resnet_incorrect_n01": 46,
+    "mcnemar_chi2_statistic": 0.7711,
+    "p_value": 0.379882,
+    "is_statistically_significant": false
+  },
+  "consensus": {
+    "models_agreement_rate": 0.9306,
+    "both_models_correct_rate": 0.8875,
+    "either_model_correct_rate": 0.9394,
+    "both_models_wrong_rate": 0.0606
+  },
+  "glioma_investigation": {
+    "total_glioma_test_images": 400,
+    "resnet50": {
+      "correct": 297,
+      "failed": 103,
+      "recall": 0.7425,
+      "precision": 0.9802,
+      "f1_score": 0.845,
+      "error_destinations": {
+        "meningioma": 59,
+        "notumor": 36,
+        "pituitary": 8
+      }
+    },
+    "vgg16": {
+      "correct": 291,
+      "failed": 109,
+      "recall": 0.7275,
+      "precision": 0.9831,
+      "f1_score": 0.8362,
+      "error_destinations": {
+        "meningioma": 79,
+        "notumor": 26,
+        "pituitary": 4
+      }
+    },
+    "both_models_failed_count": 88,
+    "analyzed_failure_samples": [
+      {
+        "filename": "Te-gl_1.jpg",
+        "true_class": "glioma",
+        "resnet_pred": "pituitary",
+        "resnet_conf": 0.4757,
+        "vgg_pred": "meningioma",
+        "vgg_conf": 0.9784
+      },
+      {
+        "filename": "Te-gl_102.jpg",
+        "true_class": "glioma",
+        "resnet_pred": "pituitary",
+        "resnet_conf": 0.3858,
+        "vgg_pred": "notumor",
+        "vgg_conf": 0.7736
+      },
+      {
+        "filename": "Te-gl_106.jpg",
+        "true_class": "glioma",
+        "resnet_pred": "meningioma",
+        "resnet_conf": 0.9572,
+        "vgg_pred": "meningioma",
+        "vgg_conf": 0.5989
+      },
+      {
+        "filename": "Te-gl_109.jpg",
+        "true_class": "glioma",
+        "resnet_pred": "meningioma",
+        "resnet_conf": 0.9537,
+        "vgg_pred": "meningioma",
+        "vgg_conf": 0.9459
+      },
+      {
+        "filename": "Te-gl_115.jpg",
+        "true_class": "glioma",
+        "resnet_pred": "meningioma",
+        "resnet_conf": 0.7571,
+        "vgg_pred": "notumor",
+        "vgg_conf": 0.5604
+      },
+      {
+        "filename": "Te-gl_126.jpg",
+        "true_class": "glioma",
+        "resnet_pred": "meningioma",
+        "resnet_conf": 0.9353,
+        "vgg_pred": "meningioma",
+        "vgg_conf": 0.9904
+      }
+    ]
+  }
+}

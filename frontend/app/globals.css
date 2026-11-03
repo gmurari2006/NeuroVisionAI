@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   CLINICAL MEDICAL SOFTWARE DESIGN TOKENS
+   Main background: #F4F7FB
+   Card background: #FFFFFF
+   Primary medical blue: #1769AA
+   Deep navy: #16324F
+   Teal accent: #159D91
+   Primary text: #243447
+   Secondary text: #64748B
+   Borders: #DCE5EF
+   Success: #15803D
+   Warning background: #FFF7E6
+   Warning text: #92400E
+   ========================================================================= */
+
+:root {
+  --med-bg: #F7F9FC;
+  --med-card: #FFFFFF;
+  --med-primary: #1769AA;
+  --med-primary-hover: #125387;
+  --med-navy: #16324F;
+  --med-teal: #159D91;
+  --med-teal-hover: #0F7D74;
+  --med-text: #243447;
+  --med-muted: #64748B;
+  --med-border: #DCE5EF;
+  --med-border-subtle: #E8EEF5;
+  --med-success: #15803D;
+  --med-warn-bg: #FFF7E6;
+  --med-warn-text: #92400E;
+  --med-warn-border: #FCD34D;
+  --med-header-bg: #FFFFFF;
+  --med-hover-bg: #EDF3FA;
+}
+
+.dark {
+  --med-bg: #0D1926;
+  --med-card: #132235;
+  --med-primary: #2196F3;
+  --med-primary-hover: #1E88E5;
+  --med-navy: #F1F5F9;
+  --med-teal: #26A69A;
+  --med-teal-hover: #2BBBAD;
+  --med-text: #E2E8F0;
+  --med-muted: #94A3B8;
+  --med-border: #1E344D;
+  --med-border-subtle: #182B40;
+  --med-success: #22C55E;
+  --med-warn-bg: rgba(245, 158, 11, 0.12);
+  --med-warn-text: #FDE68A;
+  --med-warn-border: rgba(245, 158, 11, 0.35);
+  --med-header-bg: #132235;
+  --med-hover-bg: #1A2E46;
+}
+
+html, body {
+  background-color: var(--med-bg);
+  color: var(--med-text);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Clinical Radiology & PACS Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--med-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--med-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--med-muted);
+}
+
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
