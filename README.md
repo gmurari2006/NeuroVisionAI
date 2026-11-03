@@ -152,47 +152,7 @@ Recorded directly from training logs:
 | **Input Resolution** | 224 &times; 224 (RGB) | 224 &times; 224 (RGB) |
 | **Grad-CAM Target Layer** | `layer4[2].conv3` | `features[28]` |
 
----
 
-## Getting Started on Windows
-
-### Step 1: Run Backend Diagnostics
-
-Open PowerShell in the project directory:
-
-```powershell
-cd C:\Users\tinku\OneDrive\Desktop\NeuroVisionAI
-
-# Run model checkpoint verification
-.\.venv\Scripts\python.exe validate_models.py
-
-# Run backend API integration tests
-.\.venv\Scripts\python.exe test_backend.py
-```
-
-### Step 2: Start the FastAPI Backend Server
-
-```powershell
-cd C:\Users\tinku\OneDrive\Desktop\NeuroVisionAI
-.\.venv\Scripts\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
-```
-- API Base URL: `http://127.0.0.1:8000`
-- Interactive OpenAPI Docs: `http://127.0.0.1:8000/docs`
-
-### Step 3: Start the Next.js Frontend
-
-Open a second PowerShell terminal:
-
-```powershell
-cd C:\Users\tinku\OneDrive\Desktop\NeuroVisionAI\frontend
-
-# For development
-npm run dev
-
-# Or for production workstation build
-npm run start
-```
-- Open browser at: `http://localhost:3000`
 
 ---
 
