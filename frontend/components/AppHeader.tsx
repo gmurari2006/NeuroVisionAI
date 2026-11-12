@@ -49,7 +49,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onMobileMenuToggle }) => {
       }
     } catch (err: unknown) {
       setHealth(null);
-      setErrorDetails(err instanceof Error ? err.message : "Connection failed to 127.0.0.1:8000");
+      setErrorDetails(err instanceof Error ? err.message : "Connection failed to backend API engine");
     } finally {
       setLoadingHealth(false);
     }
@@ -137,8 +137,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onMobileMenuToggle }) => {
             }`}
             title={
               isHealthy
-                ? "FastAPI backend reachable at http://127.0.0.1:8000"
-                : `Backend offline or unreachable (${errorDetails || "checking..."}). Run 'python -m uvicorn backend.main:app' in backend directory.`
+                ? "FastAPI backend reachable and operational"
+                : `Backend offline or unreachable (${errorDetails || "checking..."}). Ensure FastAPI backend server is running.`
             }
           >
             {isHealthy ? (

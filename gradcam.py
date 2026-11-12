@@ -224,6 +224,7 @@ def generate_gradcam_result(
         "heatmap_base64": image_to_base64(heatmap_pil, format="PNG"),
         "original_base64": image_to_base64(original_pil, format="PNG"),
         "disclaimer": (
+            "For academic and research demonstration only. Not intended for clinical diagnosis. "
             "Grad-CAM visualizes model activation intensity and feature importance. "
             "It does not represent clinical tumor borders, histology, or diagnostic confirmation."
         )

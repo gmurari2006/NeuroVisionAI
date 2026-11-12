@@ -19,8 +19,9 @@ async function testPdf() {
   formData.append("model_name", "both");
   formData.append("generate_cam", "true");
 
-  console.log("Calling http://localhost:3000/api/analyze...");
-  const res = await fetch("http://localhost:3000/api/analyze", {
+  const targetUrl = process.env.API_URL || "http://localhost:3001/api/analyze";
+  console.log(`Calling ${targetUrl}...`);
+  const res = await fetch(targetUrl, {
     method: "POST",
     body: formData,
   });

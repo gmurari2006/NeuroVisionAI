@@ -20,7 +20,7 @@ def render_and_inspect_pdf(pdf_path, artifact_dir):
         # Render to image at 150 DPI for crisp visual inspection
         pix = page.get_pixmap(dpi=150)
         img_filename = f"pdf_page_{page_num}.png"
-        img_path = os.path.join("evaluation", img_filename)
+        img_path = os.path.join(os.path.dirname(pdf_path), img_filename)
         pix.save(img_path)
         print(f"Saved page render to: {img_path} ({pix.width}x{pix.height} px)")
 
@@ -31,5 +31,7 @@ def render_and_inspect_pdf(pdf_path, artifact_dir):
             print(f"Copied to artifact directory: {dest}")
 
 if __name__ == "__main__":
-    artifact_dir = r"C:\Users\tinku\.gemini\antigravity\brain\5104acba-4617-487c-871a-fc8398e7cdeb"
-    render_and_inspect_pdf("evaluation/NeuroVisionAI_Generated_Report.pdf", artifact_dir)
+    project_dir = os.path.dirname(os.path.abspath(__file__))
+    pdf_file = os.path.join(project_dir, "evaluation", "NeuroVisionAI_Generated_Report.pdf")
+    artifact_dir = r"C:\Users\tinku\.gemini\antigravity\brain\6f468673-ebc2-42f0-bea0-92482d2e5de2"
+    render_and_inspect_pdf(pdf_file, artifact_dir)

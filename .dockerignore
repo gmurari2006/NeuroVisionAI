@@ -1,0 +1,76 @@
+# ==============================================================================
+# NeuroVisionAI - Docker Build Context Ignore (.dockerignore)
+# Optimized for lean, fast backend container builds for Google Cloud Run
+# ==============================================================================
+
+# Git files
+.git
+.gitignore
+.gitattributes
+.github
+
+# Frontend application (Hosted separately on Vercel)
+frontend/
+
+# Local Python virtual environments
+.venv
+venv
+env
+
+# Python byte-code and caches
+__pycache__
+*.py[cod]
+*$py.class
+*.pyd
+
+# Temporary runtime uploads and generated outputs
+uploads/*
+!uploads/.gitkeep
+outputs/*
+!outputs/.gitkeep
+_temp_extract
+*.tmp
+*.log
+
+# Large offline evaluation datasets and artifacts
+datasets
+data
+evaluation/failure_cases/
+evaluation/*.png
+evaluation/*.pdf
+
+# Offline developer and testing scripts (not needed by production FastAPI backend)
+test_*.py
+verify_full_system.py
+run_acceptance_tests.py
+render_pdf_pages.py
+inspect_pdf_content.py
+inspect_dataset.py
+generate_failure_visualizations.py
+generate_plots.py
+audit_data_leakage.py
+validate_models.py
+evaluate_models.py
+
+# Local development configs and secrets
+.env*
+!.env.example
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# TypeScript / Node caches
+*.tsbuildinfo
+node_modules
+
+# ==============================================================================
+# Whitelist model checkpoints and training history for container inclusion
+# ==============================================================================
+!models/
+!models/resnet50_finetuned_best.pth
+!models/vgg16_best.pth
+!training_history/
+!training_history/*.csv

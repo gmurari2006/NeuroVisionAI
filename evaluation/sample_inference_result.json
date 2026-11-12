@@ -1,6 +1,6 @@
 {
   "success": true,
-  "timestamp": "2026-11-03T11:45:51.232850+00:00",
+  "timestamp": "2026-11-08T09:55:42.922803+00:00",
   "image_metadata": {
     "filename": "glioma_sample.jpg",
     "content_type": "image/jpeg",
@@ -29,7 +29,7 @@
         "target_class_name": "pituitary",
         "disclaimer": "Grad-CAM visualizes model activation intensity and feature importance. It does not represent clinical tumor borders, histology, or diagnostic confirmation."
       },
-      "execution_time_ms": 1141.77
+      "execution_time_ms": 5936.36
     },
     "vgg16": {
       "model_id": "vgg16",
@@ -50,7 +50,7 @@
         "target_class_name": "meningioma",
         "disclaimer": "Grad-CAM visualizes model activation intensity and feature importance. It does not represent clinical tumor borders, histology, or diagnostic confirmation."
       },
-      "execution_time_ms": 1469.43
+      "execution_time_ms": 6196.7
     }
   },
   "disclaimer": "NeuroVisionAI is an educational research prototype. Predictions and activation maps do NOT constitute medical advice, diagnostic confirmation, or treatment planning. Always consult qualified medical professionals for clinical evaluations."

@@ -113,10 +113,10 @@ export default function ModelComparisonPage() {
   const [activeMetricTab, setActiveMetricTab] = useState<"f1" | "accuracy" | "loss">("f1");
 
   const isDark = resolvedTheme === "dark";
-  const gridColor = isDark ? "#1E344D" : "#E2E8F0";
-  const textColor = isDark ? "#94A3B8" : "#64748B";
-  const resnetColor = isDark ? "#2196F3" : "#1769AA";
-  const vggColor = isDark ? "#26A69A" : "#159D91";
+  const gridColor = isDark ? "#2B3B52" : "#DFE7F1";
+  const textColor = isDark ? "#A7B5C9" : "#64748B";
+  const resnetColor = isDark ? "#3B82F6" : "#2563EB";
+  const vggColor = isDark ? "#2DD4BF" : "#0D9488";
 
   const res = INDEPENDENT_TEST_METRICS.resnet50;
   const vgg = INDEPENDENT_TEST_METRICS.vgg16;
@@ -125,15 +125,15 @@ export default function ModelComparisonPage() {
   return (
     <div className="space-y-8 max-w-6xl mx-auto py-2">
       {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-3 transition-colors">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-[#1769AA] dark:text-[#2196F3] text-xs font-bold border border-[#DCE5EF] dark:border-[#1E344D]">
+      <div className="p-6 sm:p-8 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-3 transition-colors">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold border border-[#DFE7F1] dark:border-[#2B3B52]">
           <FileCheck2 className="w-3.5 h-3.5" />
           <span>Independent Test-Set Evaluation Results (Held-Out N = 1,600 Scans)</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#16324F] dark:text-[#F1F5F9] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#172B4D] dark:text-[#F1F5F9] tracking-tight">
           Model Performance & Comparison
         </h1>
-        <p className="text-sm text-[#64748B] dark:text-[#94A3B8] max-w-4xl leading-relaxed">
+        <p className="text-sm text-[#64748B] dark:text-[#A7B5C9] max-w-4xl leading-relaxed">
           Scientific benchmark comparing <strong>ResNet-50</strong> and <strong>VGG-16</strong> on an independent, non-leaked testing dataset of 1,600 brain MRI scans across all four diagnostic categories.
         </p>
       </div>
@@ -142,64 +142,64 @@ export default function ModelComparisonPage() {
 
       {/* Primary KPI Grid (Independent Test Metrics) */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-1.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8] block">
+        <div className="p-5 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-1.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#A7B5C9] block">
             ResNet-50 Test Acc
           </span>
-          <div className="text-3xl font-extrabold text-[#1769AA] dark:text-[#2196F3]">
+          <div className="text-3xl font-extrabold text-[#2563EB] dark:text-[#3B82F6]">
             {res.accuracy.toFixed(2)}%
           </div>
-          <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">
+          <span className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] block">
             Macro F1: <strong>{res.f1.toFixed(2)}%</strong> &bull; AUC: 0.9803
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-1.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8] block">
+        <div className="p-5 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-1.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#A7B5C9] block">
             VGG-16 Test Acc
           </span>
-          <div className="text-3xl font-extrabold text-[#159D91] dark:text-[#26A69A]">
+          <div className="text-3xl font-extrabold text-[#0D9488] dark:text-[#2DD4BF]">
             {vgg.accuracy.toFixed(2)}%
           </div>
-          <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">
+          <span className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] block">
             Macro F1: <strong>{vgg.f1.toFixed(2)}%</strong> &bull; AUC: 0.9791
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-1.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8] block">
+        <div className="p-5 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-1.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#A7B5C9] block">
             Model Agreement
           </span>
-          <div className="text-3xl font-extrabold text-[#16324F] dark:text-[#F1F5F9]">
+          <div className="text-3xl font-extrabold text-[#172B4D] dark:text-[#F1F5F9]">
             {stats.agreement_rate.toFixed(1)}%
           </div>
-          <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">
+          <span className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] block">
             Both Agree on 1,489 / 1,600 Scans
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-1.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8] block">
+        <div className="p-5 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-1.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-[#A7B5C9] block">
             McNemar Test
           </span>
-          <div className="text-3xl font-extrabold text-[#16324F] dark:text-[#F1F5F9]">
+          <div className="text-3xl font-extrabold text-[#172B4D] dark:text-[#F1F5F9]">
             p = 0.380
           </div>
-          <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">
+          <span className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] block">
             Difference Not Statistically Significant
           </span>
         </div>
       </div>
 
       {/* SECTION 1: GLOBAL BENCHMARK METRIC TABLE */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-[#DCE5EF] dark:border-[#1E344D]">
+      <div className="p-6 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-[#DFE7F1] dark:border-[#2B3B52]">
           <div className="space-y-0.5">
-            <h2 className="text-base font-bold text-[#16324F] dark:text-[#F1F5F9] flex items-center gap-2">
-              <TableIcon className="w-4 h-4 text-[#1769AA] dark:text-[#2196F3]" />
+            <h2 className="text-base font-bold text-[#172B4D] dark:text-[#F1F5F9] flex items-center gap-2">
+              <TableIcon className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
               Independent Testing Split Evaluation (N = 1,600)
             </h2>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+            <p className="text-xs text-[#64748B] dark:text-[#A7B5C9]">
               Evaluated on frozen weights using independent held-out data. Validation metrics from training are strictly excluded.
             </p>
           </div>
@@ -208,61 +208,61 @@ export default function ModelComparisonPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead>
-              <tr className="border-b border-[#DCE5EF] dark:border-[#1E344D] text-[#64748B] dark:text-[#94A3B8] font-bold uppercase">
+              <tr className="border-b border-[#DFE7F1] dark:border-[#2B3B52] text-[#64748B] dark:text-[#A7B5C9] font-bold uppercase">
                 <th className="py-3 px-3">Metric Description</th>
-                <th className="py-3 px-3 text-[#1769AA] dark:text-[#2196F3]">ResNet-50</th>
-                <th className="py-3 px-3 text-[#159D91] dark:text-[#26A69A]">VGG-16</th>
+                <th className="py-3 px-3 text-[#2563EB] dark:text-[#3B82F6]">ResNet-50</th>
+                <th className="py-3 px-3 text-[#0D9488] dark:text-[#2DD4BF]">VGG-16</th>
                 <th className="py-3 px-3">Delta (VGG - ResNet)</th>
                 <th className="py-3 px-3">Practical Significance</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#DCE5EF] dark:divide-[#1E344D]">
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">Overall Accuracy</td>
-                <td className="py-2.5 px-3 font-bold text-[#1769AA] dark:text-[#2196F3]">{res.accuracy.toFixed(2)}%</td>
-                <td className="py-2.5 px-3 font-bold text-[#159D91] dark:text-[#26A69A]">{vgg.accuracy.toFixed(2)}%</td>
+            <tbody className="divide-y divide-[#DFE7F1] dark:divide-[#2B3B52]">
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">Overall Accuracy</td>
+                <td className="py-2.5 px-3 font-bold text-[#2563EB] dark:text-[#3B82F6]">{res.accuracy.toFixed(2)}%</td>
+                <td className="py-2.5 px-3 font-bold text-[#0D9488] dark:text-[#2DD4BF]">{vgg.accuracy.toFixed(2)}%</td>
                 <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400">+0.57%</td>
-                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#94A3B8]">Marginal (+9 of 1,600 images)</td>
+                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#A7B5C9]">Marginal (+9 of 1,600 images)</td>
               </tr>
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">Macro Precision</td>
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">Macro Precision</td>
                 <td className="py-2.5 px-3 font-mono">{res.precision.toFixed(2)}%</td>
                 <td className="py-2.5 px-3 font-mono">{vgg.precision.toFixed(2)}%</td>
                 <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400">+0.72%</td>
-                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#94A3B8]">Comparable class confidence</td>
+                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#A7B5C9]">Comparable class confidence</td>
               </tr>
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">Macro Recall (Sensitivity)</td>
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">Macro Recall (Sensitivity)</td>
                 <td className="py-2.5 px-3 font-mono">{res.recall.toFixed(2)}%</td>
                 <td className="py-2.5 px-3 font-mono">{vgg.recall.toFixed(2)}%</td>
                 <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400">+0.57%</td>
-                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#94A3B8]">Equivalent sensitivity overall</td>
+                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#A7B5C9]">Equivalent sensitivity overall</td>
               </tr>
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">Macro F1-Score</td>
-                <td className="py-2.5 px-3 font-bold text-[#1769AA] dark:text-[#2196F3]">{res.f1.toFixed(2)}%</td>
-                <td className="py-2.5 px-3 font-bold text-[#159D91] dark:text-[#26A69A]">{vgg.f1.toFixed(2)}%</td>
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">Macro F1-Score</td>
+                <td className="py-2.5 px-3 font-bold text-[#2563EB] dark:text-[#3B82F6]">{res.f1.toFixed(2)}%</td>
+                <td className="py-2.5 px-3 font-bold text-[#0D9488] dark:text-[#2DD4BF]">{vgg.f1.toFixed(2)}%</td>
                 <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400">+0.55%</td>
-                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#94A3B8]">Harmonic balance identical</td>
+                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#A7B5C9]">Harmonic balance identical</td>
               </tr>
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">Macro ROC-AUC</td>
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">Macro ROC-AUC</td>
                 <td className="py-2.5 px-3 font-mono">{res.roc_auc.toFixed(4)}</td>
                 <td className="py-2.5 px-3 font-mono">{vgg.roc_auc.toFixed(4)}</td>
                 <td className="py-2.5 px-3 font-mono text-rose-600 dark:text-rose-400">-0.0012</td>
-                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#94A3B8]">Both models exhibit high separation</td>
+                <td className="py-2.5 px-3 text-[#64748B] dark:text-[#A7B5C9]">Both models exhibit high separation</td>
               </tr>
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">CPU Inference Latency</td>
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">CPU Inference Latency</td>
                 <td className="py-2.5 px-3 font-bold text-emerald-600 dark:text-emerald-400">{res.latency_ms} ms</td>
-                <td className="py-2.5 px-3 font-mono text-[#64748B] dark:text-[#94A3B8]">{vgg.latency_ms} ms</td>
+                <td className="py-2.5 px-3 font-mono text-[#64748B] dark:text-[#A7B5C9]">{vgg.latency_ms} ms</td>
                 <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400">-468.6 ms</td>
                 <td className="py-2.5 px-3 font-bold text-emerald-700 dark:text-emerald-400">ResNet is 2.1x faster</td>
               </tr>
-              <tr className="hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46]/40 transition-colors">
-                <td className="py-2.5 px-3 font-semibold text-[#16324F] dark:text-[#F1F5F9]">Parameter Count</td>
+              <tr className="hover:bg-[#F4F7FB] dark:hover:bg-[#111C30]/40 transition-colors">
+                <td className="py-2.5 px-3 font-semibold text-[#172B4D] dark:text-[#F1F5F9]">Parameter Count</td>
                 <td className="py-2.5 px-3 font-bold text-emerald-600 dark:text-emerald-400">{res.parameters}</td>
-                <td className="py-2.5 px-3 font-mono text-[#64748B] dark:text-[#94A3B8]">{vgg.parameters}</td>
+                <td className="py-2.5 px-3 font-mono text-[#64748B] dark:text-[#A7B5C9]">{vgg.parameters}</td>
                 <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400">-110.76 M</td>
                 <td className="py-2.5 px-3 font-bold text-emerald-700 dark:text-emerald-400">ResNet is 5.7x smaller</td>
               </tr>
@@ -272,47 +272,47 @@ export default function ModelComparisonPage() {
       </div>
 
       {/* SECTION 2: SIDE-BY-SIDE CONFUSION MATRICES */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#DCE5EF] dark:border-[#1E344D]">
+      <div className="p-6 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#DFE7F1] dark:border-[#2B3B52]">
           <div className="space-y-0.5">
-            <h2 className="text-base font-bold text-[#16324F] dark:text-[#F1F5F9] flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#1769AA] dark:text-[#2196F3]" />
+            <h2 className="text-base font-bold text-[#172B4D] dark:text-[#F1F5F9] flex items-center gap-2">
+              <Activity className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
               Side-by-Side Confusion Matrices (Independent Test Set, N = 1,600)
             </h2>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+            <p className="text-xs text-[#64748B] dark:text-[#A7B5C9]">
               Ground truth rows vs. predicted columns. Exactly 400 test scans per class.
             </p>
           </div>
-          <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] text-[#64748B] dark:text-[#94A3B8]">
+          <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] text-[#64748B] dark:text-[#A7B5C9]">
             400 Scans / Class
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
           {/* Matrix 1: ResNet-50 */}
-          <div className="p-4 rounded-xl bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] space-y-3">
+          <div className="p-4 rounded-xl bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] space-y-3">
             <div className="flex items-center justify-between">
-              <div className="font-bold text-sm text-[#1769AA] dark:text-[#2196F3] flex items-center gap-1.5">
+              <div className="font-bold text-sm text-[#2563EB] dark:text-[#3B82F6] flex items-center gap-1.5">
                 <Brain className="w-4 h-4" />
                 <span>ResNet-50 (Accuracy: 91.06%)</span>
               </div>
-              <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8]">1,457 / 1,600 Correct</span>
+              <span className="text-[11px] text-[#64748B] dark:text-[#A7B5C9]">1,457 / 1,600 Correct</span>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-center text-xs">
                 <thead>
-                  <tr className="text-[11px] text-[#64748B] dark:text-[#94A3B8] border-b border-[#DCE5EF] dark:border-[#1E344D]">
+                  <tr className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] border-b border-[#DFE7F1] dark:border-[#2B3B52]">
                     <th className="py-2 text-left font-semibold">True \ Pred</th>
                     {CLASS_LABELS.map((c) => (
                       <th key={c} className="py-2 px-1 font-bold">{c}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#DCE5EF] dark:divide-[#1E344D] font-mono">
+                <tbody className="divide-y divide-[#DFE7F1] dark:divide-[#2B3B52] font-mono">
                   {res.confusion_matrix.map((row, i) => (
-                    <tr key={CLASS_LABELS[i]} className="hover:bg-white/50 dark:hover:bg-[#1A2E46]/30">
-                      <td className="py-2.5 text-left font-sans font-semibold text-[#16324F] dark:text-[#F1F5F9]">
+                    <tr key={CLASS_LABELS[i]} className="hover:bg-white/50 dark:hover:bg-[#111C30]/30">
+                      <td className="py-2.5 text-left font-sans font-semibold text-[#172B4D] dark:text-[#F1F5F9]">
                         {CLASS_LABELS[i]}
                       </td>
                       {row.map((cell, j) => {
@@ -322,10 +322,10 @@ export default function ModelComparisonPage() {
                             key={j}
                             className={`py-2.5 px-2 ${
                               isDiagonal
-                                ? "bg-blue-100/70 dark:bg-blue-900/40 font-bold text-[#1769AA] dark:text-[#2196F3]"
+                                ? "bg-blue-100/70 dark:bg-blue-900/40 font-bold text-[#2563EB] dark:text-[#3B82F6]"
                                 : cell > 0
                                 ? "text-rose-600 dark:text-rose-400 font-semibold"
-                                : "text-[#94A3B8]"
+                                : "text-[#A7B5C9]"
                             }`}
                           >
                             {cell}
@@ -337,35 +337,35 @@ export default function ModelComparisonPage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8] italic pt-1">
+            <p className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] italic pt-1">
               Diagonal shows true positives. Glioma row reveals 59 confused with Meningioma and 36 as No Tumor.
             </p>
           </div>
 
           {/* Matrix 2: VGG-16 */}
-          <div className="p-4 rounded-xl bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] space-y-3">
+          <div className="p-4 rounded-xl bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] space-y-3">
             <div className="flex items-center justify-between">
-              <div className="font-bold text-sm text-[#159D91] dark:text-[#26A69A] flex items-center gap-1.5">
+              <div className="font-bold text-sm text-[#0D9488] dark:text-[#2DD4BF] flex items-center gap-1.5">
                 <Layers className="w-4 h-4" />
                 <span>VGG-16 (Accuracy: 91.63%)</span>
               </div>
-              <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8]">1,466 / 1,600 Correct</span>
+              <span className="text-[11px] text-[#64748B] dark:text-[#A7B5C9]">1,466 / 1,600 Correct</span>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-center text-xs">
                 <thead>
-                  <tr className="text-[11px] text-[#64748B] dark:text-[#94A3B8] border-b border-[#DCE5EF] dark:border-[#1E344D]">
+                  <tr className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] border-b border-[#DFE7F1] dark:border-[#2B3B52]">
                     <th className="py-2 text-left font-semibold">True \ Pred</th>
                     {CLASS_LABELS.map((c) => (
                       <th key={c} className="py-2 px-1 font-bold">{c}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#DCE5EF] dark:divide-[#1E344D] font-mono">
+                <tbody className="divide-y divide-[#DFE7F1] dark:divide-[#2B3B52] font-mono">
                   {vgg.confusion_matrix.map((row, i) => (
-                    <tr key={CLASS_LABELS[i]} className="hover:bg-white/50 dark:hover:bg-[#1A2E46]/30">
-                      <td className="py-2.5 text-left font-sans font-semibold text-[#16324F] dark:text-[#F1F5F9]">
+                    <tr key={CLASS_LABELS[i]} className="hover:bg-white/50 dark:hover:bg-[#111C30]/30">
+                      <td className="py-2.5 text-left font-sans font-semibold text-[#172B4D] dark:text-[#F1F5F9]">
                         {CLASS_LABELS[i]}
                       </td>
                       {row.map((cell, j) => {
@@ -375,10 +375,10 @@ export default function ModelComparisonPage() {
                             key={j}
                             className={`py-2.5 px-2 ${
                               isDiagonal
-                                ? "bg-teal-100/70 dark:bg-teal-900/40 font-bold text-[#159D91] dark:text-[#26A69A]"
+                                ? "bg-teal-100/70 dark:bg-teal-900/40 font-bold text-[#0D9488] dark:text-[#2DD4BF]"
                                 : cell > 0
                                 ? "text-rose-600 dark:text-rose-400 font-semibold"
-                                : "text-[#94A3B8]"
+                                : "text-[#A7B5C9]"
                             }`}
                           >
                             {cell}
@@ -390,7 +390,7 @@ export default function ModelComparisonPage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8] italic pt-1">
+            <p className="text-[11px] text-[#64748B] dark:text-[#A7B5C9] italic pt-1">
               Diagonal shows true positives. Glioma row reveals 79 confused with Meningioma and 26 as No Tumor.
             </p>
           </div>
@@ -398,12 +398,12 @@ export default function ModelComparisonPage() {
       </div>
 
       {/* SECTION 3: PER-CLASS PERFORMANCE & GLIOMA ALERT */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-5">
-        <div className="space-y-1 pb-3 border-b border-[#DCE5EF] dark:border-[#1E344D]">
-          <h2 className="text-base font-bold text-[#16324F] dark:text-[#F1F5F9]">
+      <div className="p-6 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-5">
+        <div className="space-y-1 pb-3 border-b border-[#DFE7F1] dark:border-[#2B3B52]">
+          <h2 className="text-base font-bold text-[#172B4D] dark:text-[#F1F5F9]">
             Per-Class Performance Breakdown & Error Analysis
           </h2>
-          <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+          <p className="text-xs text-[#64748B] dark:text-[#A7B5C9]">
             Detailed diagnostic precision, recall, and F1-score across each brain tumor pathology.
           </p>
         </div>
@@ -433,103 +433,103 @@ export default function ModelComparisonPage() {
             </div>
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">ResNet-50 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">84.50%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">ResNet-50 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">84.50%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">VGG-16 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">83.62%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">VGG-16 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">83.62%</span>
               </div>
               <div className="flex justify-between border-t border-rose-200/60 dark:border-rose-900/30 pt-1">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Recall (ResNet / VGG):</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Recall (ResNet / VGG):</span>
                 <span className="font-bold font-mono text-rose-600 dark:text-rose-400">74.3% / 72.8%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Precision (ResNet / VGG):</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Precision (ResNet / VGG):</span>
                 <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400">98.0% / 98.3%</span>
               </div>
             </div>
           </div>
 
           {/* Meningioma */}
-          <div className="p-4 rounded-xl bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] space-y-3">
+          <div className="p-4 rounded-xl bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm text-[#16324F] dark:text-[#F1F5F9]">Meningioma</span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-[#1769AA] dark:text-[#2196F3]">
+              <span className="font-bold text-sm text-[#172B4D] dark:text-[#F1F5F9]">Meningioma</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-[#2563EB] dark:text-[#3B82F6]">
                 High Sensitivity
               </span>
             </div>
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">ResNet-50 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">88.22%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">ResNet-50 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">88.22%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">VGG-16 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">88.01%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">VGG-16 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">88.01%</span>
               </div>
-              <div className="flex justify-between border-t border-[#DCE5EF] dark:border-[#1E344D] pt-1">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Recall (ResNet / VGG):</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">91.8% / 94.5%</span>
+              <div className="flex justify-between border-t border-[#DFE7F1] dark:border-[#2B3B52] pt-1">
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Recall (ResNet / VGG):</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">91.8% / 94.5%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Precision (ResNet / VGG):</span>
-                <span className="font-bold font-mono text-[#64748B] dark:text-[#94A3B8]">85.0% / 82.4%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Precision (ResNet / VGG):</span>
+                <span className="font-bold font-mono text-[#64748B] dark:text-[#A7B5C9]">85.0% / 82.4%</span>
               </div>
             </div>
           </div>
 
           {/* No Tumor */}
-          <div className="p-4 rounded-xl bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] space-y-3">
+          <div className="p-4 rounded-xl bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm text-[#16324F] dark:text-[#F1F5F9]">No Tumor (Control)</span>
+              <span className="font-bold text-sm text-[#172B4D] dark:text-[#F1F5F9]">No Tumor (Control)</span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400">
                 99.8% Recall
               </span>
             </div>
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">ResNet-50 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">93.77%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">ResNet-50 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">93.77%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">VGG-16 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">95.57%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">VGG-16 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">95.57%</span>
               </div>
-              <div className="flex justify-between border-t border-[#DCE5EF] dark:border-[#1E344D] pt-1">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Recall (ResNet / VGG):</span>
+              <div className="flex justify-between border-t border-[#DFE7F1] dark:border-[#2B3B52] pt-1">
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Recall (ResNet / VGG):</span>
                 <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400">99.8% / 99.8%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Precision (ResNet / VGG):</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">88.5% / 91.7%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Precision (ResNet / VGG):</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">88.5% / 91.7%</span>
               </div>
             </div>
           </div>
 
           {/* Pituitary */}
-          <div className="p-4 rounded-xl bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] space-y-3">
+          <div className="p-4 rounded-xl bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm text-[#16324F] dark:text-[#F1F5F9]">Pituitary Adenoma</span>
+              <span className="font-bold text-sm text-[#172B4D] dark:text-[#F1F5F9]">Pituitary Adenoma</span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-400">
                 Top Accuracy
               </span>
             </div>
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">ResNet-50 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">96.81%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">ResNet-50 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">96.81%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">VGG-16 F1:</span>
-                <span className="font-bold font-mono text-[#16324F] dark:text-[#F1F5F9]">98.27%</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">VGG-16 F1:</span>
+                <span className="font-bold font-mono text-[#172B4D] dark:text-[#F1F5F9]">98.27%</span>
               </div>
-              <div className="flex justify-between border-t border-[#DCE5EF] dark:border-[#1E344D] pt-1">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Recall (ResNet / VGG):</span>
+              <div className="flex justify-between border-t border-[#DFE7F1] dark:border-[#2B3B52] pt-1">
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Recall (ResNet / VGG):</span>
                 <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400">98.5% / 99.5%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Precision (ResNet / VGG):</span>
+                <span className="text-[#64748B] dark:text-[#A7B5C9]">Precision (ResNet / VGG):</span>
                 <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400">95.2% / 97.1%</span>
               </div>
             </div>
@@ -538,25 +538,25 @@ export default function ModelComparisonPage() {
       </div>
 
       {/* SECTION 4: HISTORICAL TRAINING LOGS (PRESERVED CONTEXT) */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#DCE5EF] dark:border-[#1E344D] pb-4">
+      <div className="p-6 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#DFE7F1] dark:border-[#2B3B52] pb-4">
           <div className="space-y-0.5">
-            <h3 className="text-sm font-bold text-[#16324F] dark:text-[#F1F5F9] flex items-center gap-1.5">
-              <BarChart3 className="w-4 h-4 text-[#1769AA] dark:text-[#2196F3]" />
+            <h3 className="text-sm font-bold text-[#172B4D] dark:text-[#F1F5F9] flex items-center gap-1.5">
+              <BarChart3 className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
               Historical Validation Convergence (Training History CSVs)
             </h3>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+            <p className="text-xs text-[#64748B] dark:text-[#A7B5C9]">
               Epoch-by-epoch validation progress during initial transfer learning fine-tuning.
             </p>
           </div>
 
-          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#F7F9FC] dark:bg-[#0D1926] border border-[#DCE5EF] dark:border-[#1E344D] text-xs">
+          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#F4F7FB] dark:bg-[#111C30] border border-[#DFE7F1] dark:border-[#2B3B52] text-xs">
             <button
               onClick={() => setActiveMetricTab("f1")}
               className={`px-3 py-1.5 rounded-md font-semibold transition-colors cursor-pointer ${
                 activeMetricTab === "f1"
-                  ? "bg-white dark:bg-[#1A2E46] text-[#1769AA] dark:text-[#2196F3] shadow-xs"
-                  : "text-[#64748B] dark:text-[#94A3B8]"
+                  ? "bg-white dark:bg-[#111C30] text-[#2563EB] dark:text-[#3B82F6] shadow-xs"
+                  : "text-[#64748B] dark:text-[#A7B5C9]"
               }`}
             >
               Validation F1
@@ -565,8 +565,8 @@ export default function ModelComparisonPage() {
               onClick={() => setActiveMetricTab("accuracy")}
               className={`px-3 py-1.5 rounded-md font-semibold transition-colors cursor-pointer ${
                 activeMetricTab === "accuracy"
-                  ? "bg-white dark:bg-[#1A2E46] text-[#1769AA] dark:text-[#2196F3] shadow-xs"
-                  : "text-[#64748B] dark:text-[#94A3B8]"
+                  ? "bg-white dark:bg-[#111C30] text-[#2563EB] dark:text-[#3B82F6] shadow-xs"
+                  : "text-[#64748B] dark:text-[#A7B5C9]"
               }`}
             >
               Accuracy
@@ -575,8 +575,8 @@ export default function ModelComparisonPage() {
               onClick={() => setActiveMetricTab("loss")}
               className={`px-3 py-1.5 rounded-md font-semibold transition-colors cursor-pointer ${
                 activeMetricTab === "loss"
-                  ? "bg-white dark:bg-[#1A2E46] text-[#1769AA] dark:text-[#2196F3] shadow-xs"
-                  : "text-[#64748B] dark:text-[#94A3B8]"
+                  ? "bg-white dark:bg-[#111C30] text-[#2563EB] dark:text-[#3B82F6] shadow-xs"
+                  : "text-[#64748B] dark:text-[#A7B5C9]"
               }`}
             >
               Loss
@@ -593,9 +593,9 @@ export default function ModelComparisonPage() {
                 <YAxis domain={[90, 97]} unit="%" stroke={textColor} fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: isDark ? "#111C2E" : "#FFFFFF",
-                    borderColor: isDark ? "#26364B" : "#E2E8F0",
-                    color: isDark ? "#F1F5F9" : "#142B4A",
+                    backgroundColor: isDark ? "#17243A" : "#FFFFFF",
+                    borderColor: isDark ? "#2B3B52" : "#DFE7F1",
+                    color: isDark ? "#F1F5F9" : "#172B4D",
                     fontSize: "12px",
                     borderRadius: "8px",
                   }}
@@ -612,9 +612,9 @@ export default function ModelComparisonPage() {
                 <YAxis domain={[90, 97]} unit="%" stroke={textColor} fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: isDark ? "#111C2E" : "#FFFFFF",
-                    borderColor: isDark ? "#26364B" : "#E2E8F0",
-                    color: isDark ? "#F1F5F9" : "#142B4A",
+                    backgroundColor: isDark ? "#17243A" : "#FFFFFF",
+                    borderColor: isDark ? "#2B3B52" : "#DFE7F1",
+                    color: isDark ? "#F1F5F9" : "#172B4D",
                     fontSize: "12px",
                     borderRadius: "8px",
                   }}
@@ -631,9 +631,9 @@ export default function ModelComparisonPage() {
                 <YAxis domain={[0.08, 0.26]} stroke={textColor} fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: isDark ? "#111C2E" : "#FFFFFF",
-                    borderColor: isDark ? "#26364B" : "#E2E8F0",
-                    color: isDark ? "#F1F5F9" : "#142B4A",
+                    backgroundColor: isDark ? "#17243A" : "#FFFFFF",
+                    borderColor: isDark ? "#2B3B52" : "#DFE7F1",
+                    color: isDark ? "#F1F5F9" : "#172B4D",
                     fontSize: "12px",
                     borderRadius: "8px",
                   }}
@@ -649,16 +649,16 @@ export default function ModelComparisonPage() {
       </div>
 
       {/* Bottom CTA to MRI Analysis */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-6 rounded-2xl bg-white dark:bg-[#132235] border border-[#DCE5EF] dark:border-[#1E344D] shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-6 rounded-xl bg-white dark:bg-[#17243A] border border-[#DFE7F1] dark:border-[#2B3B52] shadow-xs">
         <div className="space-y-0.5">
-          <div className="text-sm font-bold text-[#16324F] dark:text-[#F1F5F9]">Evaluate with Real MRI Scans</div>
-          <div className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+          <div className="text-sm font-bold text-[#172B4D] dark:text-[#F1F5F9]">Evaluate with Real MRI Scans</div>
+          <div className="text-xs text-[#64748B] dark:text-[#A7B5C9]">
             Upload axial brain MRI images to classify tumors and inspect Grad-CAM activation heatmaps.
           </div>
         </div>
         <Link
           href="/analysis"
-          className="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl bg-[#1769AA] hover:bg-[#125387] dark:bg-[#2196F3] dark:hover:bg-[#1E88E5] text-white text-xs font-bold transition-all shadow-sm cursor-pointer shrink-0"
+          className="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0"
         >
           <span>ANALYSE MRI SCAN</span>
           <ArrowRight className="w-3.5 h-3.5" />

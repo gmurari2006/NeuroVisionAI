@@ -33,9 +33,9 @@ from gradcam import generate_gradcam_result
 logger = logging.getLogger("NeuroVisionAI.InferenceService")
 
 RESEARCH_DISCLAIMER = (
-    "NeuroVisionAI is an educational research prototype. Predictions and activation maps "
-    "do NOT constitute medical advice, diagnostic confirmation, or treatment planning. "
-    "Always consult qualified medical professionals for clinical evaluations."
+    "For academic and research demonstration only. Not intended for clinical diagnosis. "
+    "Predictions and activation maps do NOT constitute medical advice, diagnostic confirmation, "
+    "or treatment planning. Always consult qualified medical professionals for clinical evaluations."
 )
 
 

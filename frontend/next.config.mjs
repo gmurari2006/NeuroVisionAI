@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+const backendInternalUrl =
+  process.env.BACKEND_INTERNAL_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://127.0.0.1:8000";
+
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ["lucide-react"],
@@ -6,7 +11,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://127.0.0.1:8000/api/:path*",
+        destination: `${backendInternalUrl.replace(/\/+$/, "")}/api/:path*`,
       },
     ];
   },

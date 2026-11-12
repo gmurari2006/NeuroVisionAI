@@ -21,7 +21,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = "" }) => {
     return (
       <button
         type="button"
-        className={`w-9 h-9 rounded-lg border border-[#DCE5EF] dark:border-[#1E344D] bg-white dark:bg-[#132235] text-[#64748B] flex items-center justify-center transition-colors cursor-pointer ${className}`}
+        className={`w-9 h-9 rounded-lg border border-[#DFE7F1] dark:border-[#2B3B52] bg-white dark:bg-[#17243A] text-[#64748B] dark:text-[#A7B5C9] flex items-center justify-center transition-colors cursor-pointer ${className}`}
         aria-label="Toggle theme"
       >
         <Moon className="w-4 h-4 opacity-40" />
@@ -35,14 +35,14 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = "" }) => {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`w-9 h-9 rounded-lg border border-[#DCE5EF] dark:border-[#1E344D] bg-white dark:bg-[#132235] text-[#243447] dark:text-[#E2E8F0] hover:bg-[#F7F9FC] dark:hover:bg-[#1A2E46] flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs ${className}`}
-      title={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-      aria-label={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
+      className={`w-9 h-9 rounded-lg border border-[#DFE7F1] dark:border-[#2B3B52] bg-white dark:bg-[#17243A] text-[#172B4D] dark:text-[#F1F5F9] hover:bg-[#F4F7FB] dark:hover:bg-[#1E2E48] flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs ${className}`}
+      title={isDark ? "Switch to Light Clinical Theme" : "Switch to Dark Workstation Theme"}
+      aria-label={isDark ? "Switch to Light Clinical Theme" : "Switch to Dark Workstation Theme"}
     >
       {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
+        <Sun className="w-4 h-4 text-[#FBBF24] hover:rotate-45 transition-transform" />
       ) : (
-        <Moon className="w-4 h-4 text-[#1769AA] hover:-rotate-12 transition-transform" />
+        <Moon className="w-4 h-4 text-[#17365D] hover:-rotate-12 transition-transform" />
       )}
     </button>
   );

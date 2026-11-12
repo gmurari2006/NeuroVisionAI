@@ -1,5 +1,6 @@
 import re
 import sys
+import os
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -73,4 +74,7 @@ def inspect_pdf(filepath):
         print(f"  {'[PASS]' if found else '[FAIL]'} {c}")
 
 if __name__ == "__main__":
-    inspect_pdf("evaluation/NeuroVisionAI_Generated_Report.pdf")
+    project_dir = os.path.dirname(os.path.abspath(__file__))
+    default_path = os.path.join(project_dir, "evaluation", "NeuroVisionAI_Generated_Report.pdf")
+    target = sys.argv[1] if len(sys.argv) > 1 else default_path
+    inspect_pdf(target)

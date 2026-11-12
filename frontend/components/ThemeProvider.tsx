@@ -14,15 +14,13 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
+  // Light theme is the default for first-time visitors
+  const [theme, setThemeState] = useState<Theme>("light");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme from document or localStorage on mount
+  // Initialize theme from localStorage on mount, preserving user preference
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setResolvedTheme(isDark ? "dark" : "light");
-
     try {
       const saved = localStorage.getItem("neurovision_theme") as Theme | null;
       if (saved && ["light", "dark", "system"].includes(saved)) {
@@ -33,10 +31,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         } else if (saved === "light") {
           setResolvedTheme("light");
           document.documentElement.classList.remove("dark");
+        } else if (saved === "system") {
+          const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          setResolvedTheme(sysDark ? "dark" : "light");
+          if (sysDark) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
         }
+      } else {
+        // First-time visitor: default to light theme explicitly
+        setThemeState("light");
+        setResolvedTheme("light");
+        document.documentElement.classList.remove("dark");
       }
     } catch {
-      // Local storage unavailable
+      // Local storage unavailable: default to light theme
+      setThemeState("light");
+      setResolvedTheme("light");
+      document.documentElement.classList.remove("dark");
     }
 
     setMounted(true);

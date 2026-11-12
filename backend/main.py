@@ -56,18 +56,31 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Configure CORS for local Next.js frontend development
-origins = [
+# Configure CORS: allow configurable origins via CORS_ORIGINS environment variable
+# Comma-separated list of origins (e.g., "https://neurovision-ai.vercel.app,http://localhost:3000")
+default_dev_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3001",
 ]
 
+cors_origins_env = os.environ.get("CORS_ORIGINS", "").strip()
+if cors_origins_env:
+    # Parse comma-separated list and strip whitespace
+    parsed_origins = [origin.strip() for origin in cors_origins_env.split(",") if origin.strip()]
+    # Combine user-defined origins with dev origins (avoiding duplicates)
+    origins = list(dict.fromkeys(parsed_origins + default_dev_origins))
+else:
+    origins = default_dev_origins
+
+# Safety check: if wildcard "*" is configured, allow_credentials must NOT be True (W3C CORS spec)
+allow_credentials = "*" not in origins
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -116,5 +129,8 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, reload=False)
+    host = os.environ.get("HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT", "8000"))
+    logger.info(f"Starting NeuroVisionAI FastAPI backend on {host}:{port}")
+    uvicorn.run("backend.main:app", host=host, port=port, reload=False)
 
