@@ -1,0 +1,41 @@
+# ==============================================================================
+# NeuroVisionAI - Render Blueprint Deployment Specification
+# Deploy both backend and environment configurations declaratively on Render.
+# Documentation: https://render.com/docs/blueprint-spec
+# ==============================================================================
+version: "1"
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. FastAPI Deep Learning Backend Engine
+  # ----------------------------------------------------------------------------
+  - type: web
+    name: neurovision-ai-backend
+    runtime: python
+    region: oregon
+    plan: starter # Starter (512MB) or Standard (2GB recommended for dual PyTorch models)
+    buildCommand: pip install --upgrade pip && pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: HOST
+        value: 0.0.0.0
+      # CORS configuration: allows Vercel production + preview deployment URLs
+      - key: CORS_ORIGIN_REGEX
+        value: "^https://.*\\.vercel\\.app$"
+      - key: CORS_ORIGINS
+        value: "https://neurovision-ai.vercel.app,http://localhost:3000,http://127.0.0.1:3000"
+      # Models to load into memory: "resnet50,vgg16" (or "resnet50" for 512MB RAM free tier)
+      - key: LOAD_MODELS
+        value: "resnet50,vgg16"
+      # Optional Cloud Storage URLs for automated weight downloading on startup:
+      # - key: RESNET_WEIGHTS_URL
+      #   value: https://huggingface.co/.../resnet50_finetuned_best.pth
+      # - key: VGG_WEIGHTS_URL
+      #   value: https://huggingface.co/.../vgg16_best.pth
+      # Optional Render Persistent Disk mount path:
+      # - key: MODELS_DIR
+      #   value: /var/data/models

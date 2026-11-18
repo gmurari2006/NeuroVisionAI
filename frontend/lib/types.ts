@@ -7,6 +7,7 @@ export interface HealthStatus {
     vgg16: boolean;
   };
   version: string;
+  detail?: string;
 }
 
 export interface EpochMetric {

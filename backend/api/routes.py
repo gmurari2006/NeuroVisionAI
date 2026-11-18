@@ -37,15 +37,27 @@ ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 async def health_check():
     """Health check verifying model loading status and hardware device."""
     manager = ModelManager.get_instance()
+    
+    if manager.is_loaded:
+        health_status = "healthy"
+        detail_msg = f"Models active: {list(manager.models.keys())}"
+    elif manager.init_error:
+        health_status = "degraded"
+        detail_msg = manager.init_error
+    else:
+        health_status = "initializing"
+        detail_msg = "Model checkpoints are loading into memory."
+
     return HealthResponse(
-        status="healthy" if manager.is_loaded else "initializing",
+        status=health_status,
         timestamp=datetime.now(timezone.utc).isoformat(),
         device=str(manager.device),
         models_loaded={
             "resnet50": "resnet50" in manager.models,
             "vgg16": "vgg16" in manager.models
         },
-        version="1.0.0"
+        version="1.0.0",
+        detail=detail_msg
     )
 
 
@@ -54,7 +66,10 @@ async def list_models():
     """Returns metadata and verified validation history for both models."""
     manager = ModelManager.get_instance()
     if not manager.is_loaded:
-        manager.initialize()
+        try:
+            manager.initialize()
+        except Exception as init_err:
+            logger.warning(f"Model initialization incomplete during /api/models: {init_err}")
 
     models_info = manager.get_models_info()
     return ModelsListResponse(
@@ -118,10 +133,16 @@ async def analyze_mri(
         )
         return response_dict
     except ValueError as val_err:
-        logger.warning(f"Validation error during MRI analysis: {val_err}")
+        err_str = str(val_err)
+        logger.warning(f"Validation error during MRI analysis: {err_str}")
+        http_status = (
+            status.HTTP_503_SERVICE_UNAVAILABLE
+            if "unavailable" in err_str.lower() or "not loaded" in err_str.lower()
+            else status.HTTP_400_BAD_REQUEST
+        )
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(val_err)
+            status_code=http_status,
+            detail=err_str
         )
     except Exception as exec_err:
         logger.error(f"Inference error during MRI analysis: {exec_err}", exc_info=True)

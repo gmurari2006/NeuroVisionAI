@@ -39,6 +39,80 @@ RESEARCH_DISCLAIMER = (
 )
 
 
+def resolve_checkpoint_path(model_id: str, default_filename: str) -> Tuple[Optional[str], List[str]]:
+    """
+    Resolves checkpoint path checking multiple candidate locations in priority order:
+    1. Direct file path env var (e.g. RESNET_MODEL_PATH, VGG_MODEL_PATH)
+    2. MODELS_DIR / MODEL_DIR directory env var
+    3. PROJECT_ROOT/models/<default_filename>
+    4. PROJECT_ROOT/backend/models/<default_filename>
+    5. Standard cloud container mount points (e.g. Render Persistent Disk: /var/data/models)
+    Returns: (found_path, candidate_paths_checked)
+    """
+    candidates = []
+
+    # 1. Direct environment variable
+    direct_env_key = f"{model_id.upper()}_MODEL_PATH"
+    direct_env_val = os.environ.get(direct_env_key, "").strip()
+    if direct_env_val:
+        candidates.append(direct_env_val)
+        if os.path.isfile(direct_env_val):
+            return os.path.abspath(direct_env_val), candidates
+
+    # 2. MODELS_DIR / MODEL_DIR directory environment variable
+    models_dir_env = os.environ.get("MODELS_DIR", "").strip() or os.environ.get("MODEL_DIR", "").strip()
+    if models_dir_env:
+        dir_candidate = os.path.join(models_dir_env, default_filename)
+        candidates.append(dir_candidate)
+        if os.path.isfile(dir_candidate):
+            return os.path.abspath(dir_candidate), candidates
+
+    # 3. Default repository root paths
+    repo_models_dir = os.path.join(PROJECT_ROOT, "models", default_filename)
+    candidates.append(repo_models_dir)
+    if os.path.isfile(repo_models_dir):
+        return os.path.abspath(repo_models_dir), candidates
+
+    backend_models_dir = os.path.join(PROJECT_ROOT, "backend", "models", default_filename)
+    candidates.append(backend_models_dir)
+    if os.path.isfile(backend_models_dir):
+        return os.path.abspath(backend_models_dir), candidates
+
+    # 4. Standard cloud container mount points (e.g. Render Persistent Disk)
+    cloud_paths = [
+        os.path.join("/var", "data", "models", default_filename),
+        os.path.join("/opt", "render", "project", "src", "models", default_filename),
+    ]
+    for cp in cloud_paths:
+        candidates.append(cp)
+        if os.path.isfile(cp):
+            return os.path.abspath(cp), candidates
+
+    return None, candidates
+
+
+def download_weights_if_configured(model_id: str, target_path: str) -> bool:
+    """
+    Downloads model weights from cloud storage URL if configured in env vars.
+    Checks: RESNET_WEIGHTS_URL / VGG_WEIGHTS_URL
+    """
+    url_env_key = f"{model_id.upper()}_WEIGHTS_URL"
+    weights_url = os.environ.get(url_env_key, "").strip()
+    if not weights_url:
+        return False
+
+    try:
+        import urllib.request
+        logger.info(f"Downloading {model_id} checkpoint from {weights_url} to {target_path}...")
+        os.makedirs(os.path.dirname(target_path), exist_ok=True)
+        urllib.request.urlretrieve(weights_url, target_path)
+        logger.info(f"Successfully downloaded {model_id} checkpoint ({os.path.getsize(target_path)} bytes).")
+        return True
+    except Exception as dl_err:
+        logger.error(f"Failed to download {model_id} checkpoint from {weights_url}: {dl_err}")
+        return False
+
+
 class ModelManager:
     _instance: Optional["ModelManager"] = None
 
@@ -48,6 +122,9 @@ class ModelManager:
         self.metadata: Dict[str, Dict[str, Any]] = {}
         self.history_data: Dict[str, List[Dict[str, Any]]] = {}
         self.is_loaded = False
+        self.init_error: Optional[str] = None
+        self.missing_models: List[str] = []
+        self.search_paths: Dict[str, List[str]] = {}
 
     @classmethod
     def get_instance(cls) -> "ModelManager":
@@ -62,34 +139,82 @@ class ModelManager:
             return
 
         logger.info(f"Initializing NeuroVisionAI ModelManager on device: {self.device}")
-        base_models_dir = os.path.join(PROJECT_ROOT, "models")
-        resnet_path = os.path.join(base_models_dir, "resnet50_finetuned_best.pth")
-        vgg_path = os.path.join(base_models_dir, "vgg16_best.pth")
 
-        # 1. Load ResNet-50
-        try:
-            res_model, res_meta = load_resnet50_model(resnet_path, device=self.device)
-            self.models["resnet50"] = res_model
-            self.metadata["resnet50"] = res_meta
-            logger.info("ResNet-50 loaded successfully into ModelManager cache.")
-        except Exception as err:
-            logger.error(f"Failed to load ResNet-50: {err}")
-            raise RuntimeError(f"ResNet-50 load failure: {err}")
-
-        # 2. Load VGG-16
-        try:
-            vgg_model, vgg_meta = load_vgg16_model(vgg_path, device=self.device)
-            self.models["vgg16"] = vgg_model
-            self.metadata["vgg16"] = vgg_meta
-            logger.info("VGG-16 loaded successfully into ModelManager cache.")
-        except Exception as err:
-            logger.error(f"Failed to load VGG-16: {err}")
-            raise RuntimeError(f"VGG-16 load failure: {err}")
-
-        # 3. Read Training History CSVs
+        # 1. Read Training History CSVs first (always available without weights)
         self._load_training_history()
-        self.is_loaded = True
-        logger.info("NeuroVisionAI ModelManager fully initialized.")
+
+        # 2. Determine which models to load (support memory-constrained clouds like Render Free 512MB)
+        # LOAD_MODELS="resnet50,vgg16" or "resnet50"
+        load_models_cfg = os.environ.get("LOAD_MODELS", "resnet50,vgg16").lower()
+        requested_models = [m.strip() for m in load_models_cfg.split(",") if m.strip()]
+
+        errors = []
+        self.missing_models = []
+        self.search_paths = {}
+
+        # Load ResNet-50
+        if "resnet50" in requested_models:
+            res_path, res_candidates = resolve_checkpoint_path("resnet50", "resnet50_finetuned_best.pth")
+            self.search_paths["resnet50"] = res_candidates
+            if not res_path:
+                default_target = os.path.join(PROJECT_ROOT, "models", "resnet50_finetuned_best.pth")
+                if download_weights_if_configured("resnet50", default_target):
+                    res_path = default_target
+
+            if res_path and os.path.isfile(res_path):
+                try:
+                    res_model, res_meta = load_resnet50_model(res_path, device=self.device)
+                    self.models["resnet50"] = res_model
+                    self.metadata["resnet50"] = res_meta
+                    logger.info(f"ResNet-50 loaded successfully from {res_path}.")
+                except Exception as err:
+                    msg = f"Failed to load ResNet-50 from {res_path}: {err}"
+                    logger.error(msg)
+                    errors.append(msg)
+                    self.missing_models.append("resnet50")
+            else:
+                msg = f"ResNet-50 checkpoint not found. Searched: {res_candidates}"
+                logger.warning(msg)
+                errors.append(msg)
+                self.missing_models.append("resnet50")
+
+        # Load VGG-16
+        if "vgg16" in requested_models:
+            vgg_path, vgg_candidates = resolve_checkpoint_path("vgg16", "vgg16_best.pth")
+            self.search_paths["vgg16"] = vgg_candidates
+            if not vgg_path:
+                default_target = os.path.join(PROJECT_ROOT, "models", "vgg16_best.pth")
+                if download_weights_if_configured("vgg16", default_target):
+                    vgg_path = default_target
+
+            if vgg_path and os.path.isfile(vgg_path):
+                try:
+                    vgg_model, vgg_meta = load_vgg16_model(vgg_path, device=self.device)
+                    self.models["vgg16"] = vgg_model
+                    self.metadata["vgg16"] = vgg_meta
+                    logger.info(f"VGG-16 loaded successfully from {vgg_path}.")
+                except Exception as err:
+                    msg = f"Failed to load VGG-16 from {vgg_path}: {err}"
+                    logger.error(msg)
+                    errors.append(msg)
+                    self.missing_models.append("vgg16")
+            else:
+                msg = f"VGG-16 checkpoint not found. Searched: {vgg_candidates}"
+                logger.warning(msg)
+                errors.append(msg)
+                self.missing_models.append("vgg16")
+
+        if errors:
+            self.init_error = "; ".join(errors)
+        else:
+            self.init_error = None
+
+        if len(self.models) > 0:
+            self.is_loaded = True
+            logger.info(f"NeuroVisionAI ModelManager initialized with active models: {list(self.models.keys())}.")
+        else:
+            self.is_loaded = False
+            logger.warning(f"NeuroVisionAI ModelManager initialized with 0 active models. Details: {self.init_error}")
 
     def _load_training_history(self):
         """Reads CSV histories without fabricating any values."""
@@ -243,14 +368,30 @@ class ModelManager:
         # Preprocess image tensor
         input_tensor = preprocess_image(pil_image, device=self.device)
 
+        # Check if any models are loaded
+        if not self.models:
+            detail_msg = self.init_error or "No PyTorch models are currently loaded into memory."
+            raise ValueError(
+                f"Model inference is unavailable. Checkpoints not loaded: {self.missing_models}. "
+                f"Details: {detail_msg}. "
+                f"Please ensure checkpoints exist in 'models/' or set MODELS_DIR / RESNET_MODEL_PATH in cloud environment."
+            )
+
         # Determine target models
         models_to_run = []
         if selected_model == "both":
-            models_to_run = ["resnet50", "vgg16"]
+            models_to_run = [m for m in ["resnet50", "vgg16"] if m in self.models]
+            if not models_to_run:
+                raise ValueError("Neither ResNet-50 nor VGG-16 is loaded on this instance.")
         elif selected_model in self.models:
             models_to_run = [selected_model]
         else:
-            raise ValueError(f"Invalid model selection: '{selected_model}'. Choose 'resnet50', 'vgg16', or 'both'.")
+            available = list(self.models.keys())
+            raise ValueError(
+                f"Invalid or unavailable model selection: '{selected_model}'. "
+                f"Loaded models on this instance: {available}. "
+                f"Choose from {available} or configure LOAD_MODELS / model paths."
+            )
 
         results = {}
         for m_id in models_to_run:

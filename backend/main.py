@@ -67,22 +67,32 @@ default_dev_origins = [
 
 cors_origins_env = os.environ.get("CORS_ORIGINS", "").strip()
 if cors_origins_env:
-    # Parse comma-separated list and strip whitespace
-    parsed_origins = [origin.strip() for origin in cors_origins_env.split(",") if origin.strip()]
+    # Parse comma-separated list, strip whitespace, and normalize trailing slashes
+    parsed_origins = [origin.strip().rstrip("/") for origin in cors_origins_env.split(",") if origin.strip()]
     # Combine user-defined origins with dev origins (avoiding duplicates)
     origins = list(dict.fromkeys(parsed_origins + default_dev_origins))
 else:
     origins = default_dev_origins
 
+# Regex for dynamic production/preview domains (e.g. Vercel preview branch deployments: *.vercel.app)
+# Default regex enables seamless Vercel preview environments, while allowing custom overrides via env
+cors_regex_env = os.environ.get("CORS_ORIGIN_REGEX", r"^https://.*\.vercel\.app$").strip()
+allow_origin_regex = cors_regex_env if cors_regex_env else None
+
 # Safety check: if wildcard "*" is configured, allow_credentials must NOT be True (W3C CORS spec)
 allow_credentials = "*" not in origins
+
+logger.info(f"Configuring CORS: allowed_origins={origins}, origin_regex={allow_origin_regex}, allow_credentials={allow_credentials}")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=allow_origin_regex,
     allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=86400,  # Cache preflight response for 24 hours
 )
 
 # Mount API routes

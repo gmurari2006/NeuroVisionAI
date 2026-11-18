@@ -8,15 +8,17 @@ import { HealthStatus, ModelsResponse, AnalysisResponse } from "./types";
  * - In server-side Node context (SSR / scripts): falls back to BACKEND_INTERNAL_URL or localhost.
  */
 function getApiBaseUrl(): string {
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, "");
+  const publicUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (publicUrl) {
+    return publicUrl.replace(/\/+$/, "");
   }
   if (typeof window !== "undefined") {
     // Client-side: use relative path through Next.js rewrite proxy
     return "";
   }
   // Server-side / Node.js runtime: use internal backend URL or local fallback
-  return (process.env.BACKEND_INTERNAL_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");
+  const internalUrl = process.env.BACKEND_INTERNAL_URL?.trim() || "http://127.0.0.1:8000";
+  return internalUrl.replace(/\/+$/, "");
 }
 
 export async function fetchHealth(): Promise<HealthStatus> {
@@ -67,7 +69,21 @@ export async function analyzeMRI(
     let errorDetail = "Inference request failed";
     try {
       const errJson = await res.json();
-      errorDetail = errJson.detail || errJson.error || errorDetail;
+      if (typeof errJson.detail === "string") {
+        errorDetail = errJson.detail;
+      } else if (Array.isArray(errJson.detail)) {
+        errorDetail = errJson.detail
+          .map((item: any) =>
+            item.msg
+              ? `${Array.isArray(item.loc) ? item.loc.slice(-1)[0] : "field"}: ${item.msg}`
+              : JSON.stringify(item)
+          )
+          .join("; ");
+      } else if (errJson.detail) {
+        errorDetail = JSON.stringify(errJson.detail);
+      } else if (errJson.error) {
+        errorDetail = errJson.error;
+      }
     } catch {
       errorDetail = `HTTP Error ${res.status}: ${res.statusText}`;
     }

@@ -8,6 +8,7 @@ class HealthResponse(BaseModel):
     device: str
     models_loaded: Dict[str, bool]
     version: str = "1.0.0"
+    detail: Optional[str] = None
 
 
 class EpochMetric(BaseModel):
