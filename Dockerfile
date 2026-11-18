@@ -50,7 +50,7 @@ COPY training_history /app/training_history
 # Step 5: Copy trained model checkpoints into the container image
 # .dockerignore explicitly whitelists models/*.pth so they are accessible during build
 COPY models/resnet50_finetuned_best.pth /app/models/resnet50_finetuned_best.pth
-COPY models/vgg16_best.pth /app/models/vgg16_best.pth
+#COPY models/vgg16_best.pth /app/models/vgg16_best.pth
 
 # Container Healthcheck verifying the FastAPI engine and model loading status
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
